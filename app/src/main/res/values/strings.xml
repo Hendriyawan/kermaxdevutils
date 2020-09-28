@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SampleAdsUtils</string>
     <string name="show_interstitial">Show Interstitial</string>
+    <string name="review_this_app">Review this App</string>
 </resources>
