@@ -1,5 +1,6 @@
 package com.hdev.kermaxdevutils.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -7,6 +8,7 @@ import android.os.Build
 
 class NetworkUtil {
 
+    @SuppressLint("MissingPermission")
     @Suppress("DEPRECATION")
     fun isNetworkAvailable(context: Context): Boolean {
         var available = false
