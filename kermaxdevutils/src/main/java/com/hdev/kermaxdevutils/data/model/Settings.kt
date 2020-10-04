@@ -11,5 +11,6 @@ data class Settings(
     @SerializedName("fan_banner_id") val fan_banner_id: String,
     @SerializedName("hpk") val hpk: String,
     @SerializedName("fan_interstitial_id") val fan_interstitial_id: String,
-    @SerializedName("switch_to") val switch_to: String
+    @SerializedName("switch_to") val switch_to: String,
+    @SerializedName("update") val update: Update
 ) : Parcelable

@@ -23,6 +23,7 @@ class SettingsPresenter(private val context: Context, private val mainView: Sett
                         override fun onResponse(response: SettingsResponse) {
                             mainView.onStopProgress()
                             mainView.onSettingsLoaded(response.settings)
+                            mainView.onUpdate(response.settings.update)
                         }
 
                         override fun onError(anError: ANError?) {

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_update_title_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_changelog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:gravity="start" />
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_close"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/text_button_close"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/holo_red_light"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/_9sdp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_update"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/text_button_update"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#66BB6A"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/_9sdp" />
+
+    </LinearLayout>
+
+</LinearLayout>
