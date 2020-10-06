@@ -1,12 +1,16 @@
 package com.hdev.sample
 
 import android.os.Bundle
+import com.google.android.play.core.appupdate.AppUpdateManager
 import com.hdev.kermaxdevutils.activity.BaseKermaxDevActivity
 import com.hdev.kermaxdevutils.data.model.Update
 import com.hdev.kermaxdevutils.dialog.BottomSheetDialogUpdate
+import com.hdev.kermaxdevutils.utils.UpdateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseKermaxDevActivity() {
+    private lateinit var appUpdateManager: AppUpdateManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,6 +28,8 @@ class MainActivity : BaseKermaxDevActivity() {
             "* Feature download wallpaper\n* More 500+ wallpaper\n* HD Wallpaper",
             "https://google.com"
         )
+
+        appUpdateManager = UpdateHelper.instance!!.checkUpdate(this)
 
         val bottomSheetDialog = BottomSheetDialogUpdate()
         bottomSheetDialog.setData(update)
@@ -48,5 +54,10 @@ class MainActivity : BaseKermaxDevActivity() {
         button_show_interstitial.setOnClickListener {
             showInterstitial()
         }
+    }
+
+    override fun onResume() {
+        UpdateHelper.instance!!.triggeredUpdateProgress(appUpdateManager, this)
+        super.onResume()
     }
 }
