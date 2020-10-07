@@ -72,7 +72,7 @@ class KDAppUpdateManager : LifecycleObserver {
         if (it.installStatus() == InstallStatus.DOWNLOADED) {
             //after update is downloaded, show notification
             //and request user confirmation to restart the app
-            popupSnackbarForUserConfirmation()
+            popupSnackBarForUserConfirmation()
         }
     }
 
@@ -274,7 +274,7 @@ class KDAppUpdateManager : LifecycleObserver {
      * display the snack bar notification and call to action
      * Needed only for Flexible app update
      */
-    private fun popupSnackbarForUserConfirmation() {
+    private fun popupSnackBarForUserConfirmation() {
         if (!useCustomNotification) {
             if (snackBar != null && snackBar.isShownOrQueued) {
                 snackBar.dismiss()
@@ -294,7 +294,15 @@ class KDAppUpdateManager : LifecycleObserver {
             //if the update is downloaded but not installed
             //notify the user to complete update
             if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                popupSnackBarForUserConfirmation()
+                reportStatus()
+                Log.d(LOG_TAG, "checkNewAppVersionState: resuming flexible update. Code ${appUpdateInfo.updateAvailability()}")
+            }
 
+            //IMMEDIATE
+            if(appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
+                startAppUpdateImmediate(appUpdateInfo)
+                Log.d(LOG_TAG, "checkNewAppVersionState: resuming immediate update. Code ${appUpdateInfo.updateAvailability()}")
             }
         }
 
