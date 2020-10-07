@@ -1,4 +1,4 @@
-package com.hdev.kermaxdevutils.utils
+package com.hdev.kermaxdevutils.utils.network
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -43,7 +43,8 @@ class NetworkUtil {
         val instance: NetworkUtil?
             get() {
                 if (networkHelper == null) {
-                    networkHelper = NetworkUtil()
+                    networkHelper =
+                        NetworkUtil()
                 }
                 return networkHelper
             }

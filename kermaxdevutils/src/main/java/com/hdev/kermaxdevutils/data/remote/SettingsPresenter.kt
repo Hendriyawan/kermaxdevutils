@@ -6,7 +6,7 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
 import com.hdev.kermaxdevutils.data.model.SettingsResponse
-import com.hdev.kermaxdevutils.utils.NetworkUtil
+import com.hdev.kermaxdevutils.utils.network.NetworkUtil
 
 class SettingsPresenter(private val context: Context, private val mainView: SettingsView.MainView) :
     SettingsView.Presenter {

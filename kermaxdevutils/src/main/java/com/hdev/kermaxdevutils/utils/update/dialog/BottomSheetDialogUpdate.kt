@@ -1,11 +1,9 @@
-package com.hdev.kermaxdevutils.dialog
+package com.hdev.kermaxdevutils.utils.update.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.hdev.kermaxdevutils.ChangelogAdapter
 import com.hdev.kermaxdevutils.R
 import com.hdev.kermaxdevutils.data.model.Update
 import kotlinx.android.synthetic.main.layout_bottom_sheet_dialog_update.*

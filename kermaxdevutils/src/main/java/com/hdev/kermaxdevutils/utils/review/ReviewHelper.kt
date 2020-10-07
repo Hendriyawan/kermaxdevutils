@@ -1,4 +1,4 @@
-package com.hdev.kermaxdevutils.utils
+package com.hdev.kermaxdevutils.utils.review
 
 import android.app.Activity
 import android.content.Context
@@ -52,7 +52,8 @@ class ReviewHelper {
         val instance: ReviewHelper?
             get() {
                 if (reviewHelper == null) {
-                    reviewHelper = ReviewHelper()
+                    reviewHelper =
+                        ReviewHelper()
                 }
                 return reviewHelper
             }

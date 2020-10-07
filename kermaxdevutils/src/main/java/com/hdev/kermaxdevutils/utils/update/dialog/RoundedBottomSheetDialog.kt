@@ -1,4 +1,4 @@
-package com.hdev.kermaxdevutils.dialog
+package com.hdev.kermaxdevutils.utils.update.dialog
 
 import android.app.Dialog
 import android.os.Bundle

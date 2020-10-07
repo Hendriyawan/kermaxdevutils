@@ -1,16 +1,10 @@
 package com.hdev.sample
 
 import android.os.Bundle
-import com.google.android.play.core.appupdate.AppUpdateManager
 import com.hdev.kermaxdevutils.activity.BaseKermaxDevActivity
-import com.hdev.kermaxdevutils.data.model.Update
-import com.hdev.kermaxdevutils.dialog.BottomSheetDialogUpdate
-import com.hdev.kermaxdevutils.utils.UpdateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseKermaxDevActivity() {
-    private lateinit var appUpdateManager: AppUpdateManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,14 +16,21 @@ class MainActivity : BaseKermaxDevActivity() {
         )
         initInterstitialAd("ca-app-pub-3940256099942544/1033173712", "insurance,btc,car,trading")
 
+
+        //show interstitial
+        button_show_interstitial.setOnClickListener {
+            showInterstitial()
+        }
+
+        //Code snippet for force app update BottomSheetDialog
+        /*
+
         val update = Update(
             "1.4.0",
             2,
             "* Feature download wallpaper\n* More 500+ wallpaper\n* HD Wallpaper",
             "https://google.com"
         )
-
-        appUpdateManager = UpdateHelper.instance!!.checkUpdate(this)
 
         val bottomSheetDialog = BottomSheetDialogUpdate()
         bottomSheetDialog.setData(update)
@@ -42,22 +43,27 @@ class MainActivity : BaseKermaxDevActivity() {
 
             }
         })
-
         val latestVersionCode = 1
         val newVersionCode = update.versionCode
-
         if (latestVersionCode < newVersionCode) {
             bottomSheetDialog.show(supportFragmentManager, bottomSheetDialog::class.java.simpleName)
-        }
+        }*/
 
-        //show interstitial
-        button_show_interstitial.setOnClickListener {
-            showInterstitial()
-        }
+        //Code snippet for in app update usage
+        /*
+        KDAppUpdateManager.Builder(this)!!.resumeUpdates(true)
+            .mode(Constants.UpdateMode.FLEXIBLE)
+            .snackMessage("An update has just been downloaded")
+            .snackBarAction("Restart")
+            .callback(object : KDAppUpdateManager.AppUpdateCallback {
+                override fun onAppUpdateStatus(status: AppUpdateStatus) {
+                }
+
+                override fun onUpdateError(code: Int, error: Throwable) {
+                }
+            })
+            .checkAppUpdate()*/
+
     }
 
-    override fun onResume() {
-        UpdateHelper.instance!!.triggeredUpdateProgress(appUpdateManager, this)
-        super.onResume()
-    }
 }
