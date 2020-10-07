@@ -2,6 +2,9 @@ package com.hdev.sample
 
 import android.os.Bundle
 import com.hdev.kermaxdevutils.activity.BaseKermaxDevActivity
+import com.hdev.kermaxdevutils.utils.Constants
+import com.hdev.kermaxdevutils.utils.update.AppUpdateStatus
+import com.hdev.kermaxdevutils.utils.update.KDAppUpdateManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseKermaxDevActivity() {
@@ -50,8 +53,8 @@ class MainActivity : BaseKermaxDevActivity() {
         }*/
 
         //Code snippet for in app update usage
-        /*
-        KDAppUpdateManager.Builder(this)!!.resumeUpdates(true)
+
+        KDAppUpdateManager.Builder(this, 620598)!!.resumeUpdates(true)
             .mode(Constants.UpdateMode.FLEXIBLE)
             .snackMessage("An update has just been downloaded")
             .snackBarAction("Restart")
@@ -62,7 +65,7 @@ class MainActivity : BaseKermaxDevActivity() {
                 override fun onUpdateError(code: Int, error: Throwable) {
                 }
             })
-            .checkAppUpdate()*/
+            .checkAppUpdate()
 
     }
 

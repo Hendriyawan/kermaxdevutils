@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
@@ -51,12 +52,24 @@ class KDAppUpdateManager : LifecycleObserver {
     private val appUpdateStatus: AppUpdateStatus = AppUpdateStatus()
 
     //listener
-    private val installStateUpdateListener = InstallStateUpdatedListener { installState ->
+    /*private val installStateUpdateListener = InstallStateUpdatedListener { installState ->
         appUpdateStatus.setInstallState(installState)
         reportStatus()
 
         //show module progress, log state or install the update
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+            //after update is downloaded, show notification
+            //and request user confirmation to restart the app
+            popupSnackbarForUserConfirmation()
+        }
+    }*/
+
+    private val installStateUpdateListener : InstallStateUpdatedListener = InstallStateUpdatedListener {
+        appUpdateStatus.setInstallState(it)
+        reportStatus()
+
+        //show module progress, log state or install the update
+        if (it.installStatus() == InstallStatus.DOWNLOADED) {
             //after update is downloaded, show notification
             //and request user confirmation to restart the app
             popupSnackbarForUserConfirmation()
