@@ -59,21 +59,26 @@ class KDAppUpdateManager : LifecycleObserver {
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
             //after update is downloaded, show notification
             //and request user confirmation to restart the app
-            popupSnackbarForUserConfirmation()
+            popupSnackBarForUserConfirmation()
         }
     }*/
 
-    private val installStateUpdateListener : InstallStateUpdatedListener = InstallStateUpdatedListener {
-        appUpdateStatus.setInstallState(it)
-        reportStatus()
+    private val installStateUpdateListener: InstallStateUpdatedListener =
+        InstallStateUpdatedListener {
+            appUpdateStatus.setInstallState(it)
+            reportStatus()
 
-        //show module progress, log state or install the update
-        if (it.installStatus() == InstallStatus.DOWNLOADED) {
-            //after update is downloaded, show notification
-            //and request user confirmation to restart the app
-            popupSnackBarForUserConfirmation()
+            //show module progress, log state or install the update
+            if (it.installStatus() == InstallStatus.DOWNLOADED) {
+                //after update is downloaded, show notification
+                //and request user confirmation to restart the app
+                popupSnackBarForUserConfirmation()
+            }
+
+            if (it.installStatus() == InstallStatus.FAILED) {
+                Log.d(LOG_TAG, "Install Filed : ${it.installErrorCode()}")
+            }
         }
-    }
 
     private constructor(activity: AppCompatActivity) {
         this.activity = activity
@@ -89,6 +94,7 @@ class KDAppUpdateManager : LifecycleObserver {
 
     companion object {
         private var instance: KDAppUpdateManager? = null
+
         /**
          * make a Builder
          * @param activity current Activity
@@ -115,7 +121,9 @@ class KDAppUpdateManager : LifecycleObserver {
         appUpdateManager = AppUpdateManagerFactory.create(activity!!)
         activity?.lifecycle!!.addObserver(this)
 
-        if(mode == Constants.UpdateMode.FLEXIBLE) appUpdateManager.registerListener(installStateUpdateListener)
+        if (mode == Constants.UpdateMode.FLEXIBLE) appUpdateManager.registerListener(
+            installStateUpdateListener
+        )
         checkForUpdate(false)
     }
 
@@ -135,49 +143,53 @@ class KDAppUpdateManager : LifecycleObserver {
         }
     }
 
-    fun mode(mode : Constants.UpdateMode) : KDAppUpdateManager {
+    fun mode(mode: Constants.UpdateMode): KDAppUpdateManager {
         this.mode = mode
         return this
     }
-    fun resumeUpdates(resumeUpdates : Boolean) : KDAppUpdateManager{
+
+    fun resumeUpdates(resumeUpdates: Boolean): KDAppUpdateManager {
         this.resumeUpdates = resumeUpdates
         return this
     }
 
-    fun callback(callback: AppUpdateCallback) : KDAppUpdateManager{
+    fun callback(callback: AppUpdateCallback): KDAppUpdateManager {
         this.callback = callback
         return this
     }
-    fun useCustomNotification(useCustomNotification : Boolean) : KDAppUpdateManager {
+
+    fun useCustomNotification(useCustomNotification: Boolean): KDAppUpdateManager {
         this.useCustomNotification = useCustomNotification
         return this
     }
-    fun snackMessage(snackBarMessage : String) : KDAppUpdateManager {
+
+    fun snackMessage(snackBarMessage: String): KDAppUpdateManager {
         this.snackBarMessage = snackBarMessage
         setupSnackBar()
         return this
     }
 
-    fun snackBarAction(snackBarAction : String) : KDAppUpdateManager {
+    fun snackBarAction(snackBarAction: String): KDAppUpdateManager {
         this.snackBarAction = snackBarAction
         setupSnackBar()
         return this
 
     }
-    fun snackBarActionColor(color : Int) : KDAppUpdateManager {
+
+    fun snackBarActionColor(color: Int): KDAppUpdateManager {
         snackBar.setActionTextColor(color)
         return this
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume(){
-        if(resumeUpdates){
+    fun onResume() {
+        if (resumeUpdates) {
             checkNewAppVersionState()
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy(){
+    fun onDestroy() {
         unregisterListener()
     }
 
@@ -185,7 +197,7 @@ class KDAppUpdateManager : LifecycleObserver {
      * check for update availability if there will be update available
      * will start the update process with the selected
      */
-    fun checkAppUpdate(){
+    fun checkAppUpdate() {
         checkForUpdate(true)
     }
 
@@ -295,13 +307,19 @@ class KDAppUpdateManager : LifecycleObserver {
             if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
                 popupSnackBarForUserConfirmation()
                 reportStatus()
-                Log.d(LOG_TAG, "checkNewAppVersionState: resuming flexible update. Code ${appUpdateInfo.updateAvailability()}")
+                Log.d(
+                    LOG_TAG,
+                    "checkNewAppVersionState: resuming flexible update. Code ${appUpdateInfo.updateAvailability()}"
+                )
             }
 
             //IMMEDIATE
-            if(appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
                 startAppUpdateImmediate(appUpdateInfo)
-                Log.d(LOG_TAG, "checkNewAppVersionState: resuming immediate update. Code ${appUpdateInfo.updateAvailability()}")
+                Log.d(
+                    LOG_TAG,
+                    "checkNewAppVersionState: resuming immediate update. Code ${appUpdateInfo.updateAvailability()}"
+                )
             }
         }
 
